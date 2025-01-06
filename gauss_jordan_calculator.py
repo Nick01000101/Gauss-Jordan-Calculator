@@ -133,6 +133,7 @@ def swap_rows(matrix, row1, row2):
 
 
 while True:
+# -----------------------------------------------------------------------------
             # Gives Tutorial
     needs_help = input('Would you like a tutorial? (Y/N): ')
 # -----------------------------------------------------------------------------
@@ -143,7 +144,10 @@ while True:
     unknown_size = input('Number of unknown variables\n(3 = A, B, C)\n(2 = A, B)\netc..\nInput: ')
     row_size = input('Number of rows in matrix: ')
     equations = linear_equation(unknown_size, row_size)
+# -----------------------------------------------------------------------------
+            # Copies Matrix, adds Suffixes
 
+        # Suffixes E.G (3A, 2B, 5C)
     equationscopy = copy.deepcopy(equations)
     # show_loading(3)
     print('\nCURRENT MATRIX:\n')
@@ -159,10 +163,17 @@ while True:
             equationscopy[key][i] = equationscopy[key][i] + suffixes.pop(0).upper()
         determinantcounter += 1
         equationscopy[key][-1] = (f"Det{determinantcounter} = {equationscopy[key][-1]}")
+# -----------------------------------------------------------------------------
+            # Current matrix
 
+        # Prints copied matrix with suffixes
     for systemsofequations in equationscopy.values():
         print(systemsofequations)
+# -----------------------------------------------------------------------------
+            # Beginning functions
 
+
+        # Passes Clean matrix to functions
     print('\nBeginning elementary row operations!')
     
     for operation in range(0, len(equations), 1):
@@ -194,6 +205,10 @@ while True:
         for systemsofequations in equations.values():
             print(systemsofequations)
     
+    # -----------------------------------------------------------------------------
+                # Prints final Gauss Jordan Matrix
+
+            # Appends suffixes
     def print_last_items(equations):
         suffixes = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         for index, (key, value) in enumerate(equations.items()):
@@ -206,6 +221,8 @@ while True:
 
 
     clear_screen()
+
+# ----------------------------Operations-Done!------------------------------------
 
     print('\nFINAL MATRIX:\n')
 
@@ -226,3 +243,5 @@ while True:
     print('')
 
     break
+
+# End
