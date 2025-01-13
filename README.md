@@ -5,4 +5,6 @@ Example use:
 <br />
 <br />
 Supports matrix's up to 100x100 (dont even try this)
+<br />
+(9x9 matrix example):
 ![](https://github.com/NickSevostiyanov/Gauss-Jordan-Calculator/blob/main/Gauss_9_operations.png)
