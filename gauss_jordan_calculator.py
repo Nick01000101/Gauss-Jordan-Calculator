@@ -162,7 +162,8 @@ def row_normalization(matrix, row):
     pivot = matrix[f"row{dictrow}"][row]
     
     if float(pivot) == 0:
-        raise ValueError("SPECIAL CASE! Pivot element is zero, cannot normalize the row.")
+        clear_screen()
+        raise ValueError("\n\n\nSPECIAL CASE!\nUnable to normalize row, no non-zero pivot available.\n\n")
     
     pivot = float(pivot)
     
@@ -252,8 +253,8 @@ while True:
                 equations = swap_rows(equations, operation + 1, operation + 2)
                 equations = row_normalization(equations, operation)
             else:
-                raise ValueError("SPECIAL CASE!")
-                raise ValueError("Unable to normalize row, no non-zero pivot available.")
+                clear_screen()
+                raise ValueError("\n\n\nSPECIAL CASE!\nUnable to normalize row, no non-zero pivot available.\n\n")
 
         time.sleep(1)        
         print(f"Matrix row{operation + 1} reduced by pivot position!")
