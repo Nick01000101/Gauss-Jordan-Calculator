@@ -50,6 +50,48 @@ def show_loading(duration):
             sys.stdout.flush()
             time.sleep(0.5)
     sys.stdout.write('\rDone!        \n')
+
+# -----------------------------------------------------------------------------
+        # Gives Tutorial
+
+def gauss_and_matrixs():
+    print("""In mathematics, Gaussian elimination, also known as row reduction, is an algorithm for 
+    solving systems of linear equations. It consists of a sequence of row-wise operations 
+    performed on the corresponding matrix of coefficients. This method can also be used to 
+    compute the rank of a matrix, the determinant of a square matrix, and the inverse of an 
+    invertible matrix. The method is named after Carl Friedrich Gauss (1777–1855). To perform 
+    row reduction on a matrix, one uses a sequence of elementary row operations to modify 
+    the matrix until the lower left-hand corner of the matrix is filled with zeros, as much as possible. 
+    There are three types of elementary row operations:
+        Swapping two rows,
+        Multiplying a row by a nonzero number,
+        Adding a multiple of one row to another row.')
+    """)
+    cont = input('Press any key to continue: ')
+    if cont:
+        clear_screen()
+        return
+
+def needs_help():
+    clear_screen()
+    print('TUTORIAL:\n')
+    print('Welcome to the Gauss Jordan Calculator!\n')
+    wantinfo = input('Would you to know what Gauss Jordan is (And info on Matrixs? (Y/N): ')
+    if wantinfo == 'Y':
+        gauss_and_matrixs()
+    clear_screen()
+    print('-------------------------------------------------------------------------------')
+    print('A linear equation is a where numbers are added or subtracted with unknown values\nE.g: 1A + 3B - 2C = 4')
+    print('A matrix is multiple linear equations')    
+    print('Example matrix:')
+    print('\n2A, 4B, 3C =7\n5A, 5B, 2C = 2\n\n= 2 Rows\n= 3 Unknowns')
+    print('\nMy calculator can solve for A, B and C (in this example), \nIt will prompt you to enter column numbers and repeats for X number of rows')
+    print('Try it out now!')
+    print('-------------------------------------------------------------------------------')
+    cont = input('Press any key to continue: ')
+    if cont:
+        return
+
 # -----------------------------------------------------------------------------
         # Random Num Generator
 
@@ -68,24 +110,33 @@ def math_random_small_int(small=True, medium=True, big=True):
         # - Registers values per row @ gets determinant
         # - Appends equations into lists ({row:[values]})
         # Returns Matrix (Dict)
-def linear_equation(unknown, row):
-    unknown = int(unknown)
-    row = int(row)
-    if unknown > 0:
-        fullequations = {}
-        clear_screen()
-        for rownum in range(1, row + 1):
-            print(f"Currently on row {rownum}!")
-            equations = []
-            for colnum in range(1, unknown + 2):
-                if colnum == unknown + 1:
-                    determinant = input('Determinant of matrix = ')
-                    equations.append(determinant)
-                else:
-                    equations.append(input(f'Input equation in column {colnum} of the matrix: '))
+def linear_equation():
+    unknown = input('Number of unknown variables\n(3 = A, B, C)\n(2 = A, B)\netc..\nInput: ')
+    # row = input('Number of rows in matrix\nInput: ')
+    row = unknown
+    if not unknown.isdigit() or not row.isdigit():
+        print('Enter a valid Numeric Digit!')
+        return False
+    else:
+        unknown = int(unknown)
+        row = int(row)
+        if unknown > 0:
+            fullequations = {}
             clear_screen()
-            fullequations[f"row{rownum}"] = equations
-        return fullequations
+            for rownum in range(1, row + 1):
+                print(f"Currently on row {rownum}!")
+                equations = []
+                for colnum in range(1, unknown + 2):
+                    if colnum == unknown + 1:
+                        determinant = input('Determinant of matrix = ')
+                        equations.append(determinant)
+                    else:
+                        equations.append(input(f'Input equation in column {colnum} of the matrix: '))
+                clear_screen()
+                fullequations[f"row{rownum}"] = equations
+            return fullequations
+    
+
 # -----------------------------------------------------------------------------
         # Column elimination
 
@@ -111,7 +162,7 @@ def row_normalization(matrix, row):
     pivot = matrix[f"row{dictrow}"][row]
     
     if float(pivot) == 0:
-        raise ValueError("\nSPECIAL CASE!\nPivot element is zero, cannot normalize the row.\n")
+        raise ValueError("SPECIAL CASE! Pivot element is zero, cannot normalize the row.")
     
     pivot = float(pivot)
     
@@ -135,15 +186,25 @@ def swap_rows(matrix, row1, row2):
 while True:
 # -----------------------------------------------------------------------------
             # Gives Tutorial
-    needs_help = input('Would you like a tutorial? (Y/N): ')
+    print('\nWelcome to the Gauss Jordan Calculator!')
+    print('\nNote: This calculator is for SQUARE matrixes only\n')
+    need_help = input('Would you like a tutorial? (Y/N): ')
+
+    if need_help == 'Y':
+        needs_help()
+
+    clear_screen()
 # -----------------------------------------------------------------------------
             # MATRIX DIMENSIONS
     
         # Dimensions passed to Matrix generator 
         # linear_equations(columns, rows)
-    unknown_size = input('Number of unknown variables\n(3 = A, B, C)\n(2 = A, B)\netc..\nInput: ')
-    row_size = input('Number of rows in matrix: ')
-    equations = linear_equation(unknown_size, row_size)
+    while True:
+        equations = linear_equation()
+        if equations == False:
+            equations = linear_equation()
+        else:
+            break
 # -----------------------------------------------------------------------------
             # Copies Matrix, adds Suffixes
 
